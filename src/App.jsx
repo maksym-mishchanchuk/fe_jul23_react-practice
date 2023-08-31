@@ -29,9 +29,8 @@ export const App = () => {
   const [isSortActive, setIsSortActive] = useState('All');
   const [searchField, setSearchField] = useState('');
 
-  // if (searchField) {
-  //   setVisiblesTable((prev) => prev.filter(product => product.name.includes(searchField)))
-  // }
+
+
 
   return (
     <div className="section">
@@ -106,7 +105,14 @@ export const App = () => {
             <div className="panel-block">
               <p className="control has-icons-left has-icons-right">
                 <input
-                  onChange={event => setSearchField(event.target.value)}
+                  onChange={(event) => {
+                    setSearchField(event.target.value);
+                    if (searchField) {
+                      setVisiblesTable(visiblesTable
+                        .filter(p => p.name
+                          .toLowerCase()
+                          .includes(searchField.trim().toLowerCase())));
+                    } }}
                   data-cy="SearchField"
                   type="text"
                   className="input"
