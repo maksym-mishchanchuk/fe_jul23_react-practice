@@ -29,7 +29,9 @@ export const App = () => {
   const [isSortActive, setIsSortActive] = useState('All');
   const [searchField, setSearchField] = useState('');
 
-  console.log(searchField)
+  // if (searchField) {
+  //   setVisiblesTable((prev) => prev.filter(product => product.name.includes(searchField)))
+  // }
 
   return (
     <div className="section">
@@ -116,14 +118,19 @@ export const App = () => {
                   <i className="fas fa-search" aria-hidden="true" />
                 </span>
 
-                <span className="icon is-right">
-                  {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                  <button
-                    data-cy="ClearButton"
-                    type="button"
-                    className="delete"
-                  />
-                </span>
+                {searchField
+                  && (
+                  <span className="icon is-right">
+                    {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                    <button
+                      onClick={() => setSearchField('')}
+                      data-cy="ClearButton"
+                      type="button"
+                      className="delete"
+                    />
+                  </span>
+                  )
+                }
               </p>
             </div>
 
@@ -256,7 +263,12 @@ export const App = () => {
 
                   <td
                     data-cy="ProductUser"
-                    className="has-text-link"
+                    className={
+                      cn({
+                        'is-has-text-link': product.user.sex === 'm',
+                        'has-text-danger': product.user.sex === 'f',
+                      })
+                    }
                   >
                     {product.user.name}
                   </td>
